@@ -55,15 +55,15 @@ favoriteRouter.route('/dishes')
     });
 })
 
-.post(Verify.verifyAdmin,function (req, res, next) { 
- 	Favorites.findOne({}, function (err, favorite) {
-        if (err) throw err;
-		 for(var key in req.body) {
+.post(Verify.verifyAdmin,function (req, res, next) {
+	Favorites.findOne({}, function (err, favorite) {
+		if (err) throw err;
+		for(var key in req.body) {
 			var index = favorite.dishes.indexOf(req.body[key])
 			console.log(index);
 			if (index == -1){
-				  favorite.dishes.push(req.body)
-				  console.log('Favorite added!');
+				favorite.dishes.push(req.body)
+				console.log('Favorite added!');
             };
          };	
         favorite.save(function (err, favorite) {
@@ -78,12 +78,12 @@ favoriteRouter.route('/dishes/:dishObjectId')
 .all(Verify.verifyOrdinaryUser)
 
 .get(function (req, res, next) {
-    Favorites.find({})
-	.populate('dishes')
-    .populate('postedBy')	
-    .exec(function (err, favorite) {
-        if (err) throw err;
-        res.json(favorite);
+	Favorites.find({})
+		.populate('dishes')
+    	.populate('postedBy')	
+    	.exec(function (err, favorite) {
+		if (err) throw err;
+		res.json(favorite);
     });
 })
  

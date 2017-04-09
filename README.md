@@ -2,7 +2,7 @@
 
 week 1: I designed and made use of Node modules within a Node.js HTTP server 
 and used the Express router ('dishRouter.js', 'leaderRouter.js', 'promoRouter.js')
-to supporting a REST API.
+to support a REST API.
 
 week 2: I explored the Mongoose object data modeling (ODM) and created schemas ('dishes.js',
 'leadership.js', and 'promotions.js') and interacted with the MongoDB database using Mongoose methods.

@@ -1,8 +1,8 @@
 # coursera-server-side-nodejs
 
-week 1: I designed and made use of Node modules within a Node.js HTTP server 
+week 1: I designed and made use of Node modules within a Node.js HTTP server  ('nodejs-server.js')
 and used the Express router ('dishRouter.js', 'leaderRouter.js', 'promoRouter.js')
-to support a REST API ('nodejs-server.js').
+to support a REST API.
 
 week 2: I explored the Mongoose object data modeling (ODM) and created schemas ('dishes.js',
 'leadership.js', and 'promotions.js') and interacted with the MongoDB database using Mongoose methods('dishserver.js', 'leaderserver.js', 'promoserver.js').

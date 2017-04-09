@@ -13,6 +13,6 @@ restricted certain operations on the rest API only to admin users ('dishRouter.j
 supported the querying of user information ('users.js'), which is only allowed for administrators.
 
 week 4: I created a way of allowing users to mark some of the dishes as their favorite dishes, listing the favorite dishes 
-for a user, alloweing the user to delete dishes from their favorite dishes and manage the list
-of their favorite dishes.  I used Mongoose population to populate information in a document (favoriteRouter.js) 
-from a referenced document.
+for a user, allowing the user to delete dishes from their favorite dishes and manage the list
+of their favorite dishes.  I used Mongoose population to populate information in a document ('favoriteRouter.js') 
+from a referenced document ('favorites.js').

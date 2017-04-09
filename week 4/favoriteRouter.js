@@ -20,7 +20,7 @@ favoriteRouter.route('/')
     });
 })
 
-.post(function (req, res, next) {
+.post(Verify.verifyAdmin,function (req, res, next) {
 
 Favorites.create(req.body, function (err, favorite) {
         if (err) throw err; 
@@ -35,17 +35,13 @@ Favorites.create(req.body, function (err, favorite) {
     });
 })
 
-.delete(function (req, res, next) {
+.delete(Verify.verifyAdmin,function (req, res, next) {
      Favorites.remove({}, function (err, resp) {
         if (err) throw err;
-
         res.json(resp);
-       
 	   });
-	
     });
  
-
 favoriteRouter.route('/dishes')
 .all(Verify.verifyOrdinaryUser)
 
@@ -59,7 +55,7 @@ favoriteRouter.route('/dishes')
     });
 })
 
-.post(function (req, res, next) { 
+.post(Verify.verifyAdmin,function (req, res, next) { 
  	Favorites.findOne({}, function (err, favorite) {
         if (err) throw err;
 		 for(var key in req.body) {
@@ -68,9 +64,8 @@ favoriteRouter.route('/dishes')
 			if (index == -1){
 				  favorite.dishes.push(req.body)
 				  console.log('Favorite added!');
-	};
-		 };
-		  	
+            };
+         };	
         favorite.save(function (err, favorite) {
             if (err) throw err;
             console.log('Updated Favorites!');
@@ -92,7 +87,7 @@ favoriteRouter.route('/dishes/:dishObjectId')
     });
 })
  
-.delete(function (req, res, next) {
+.delete(Verify.verifyAdmin,function (req, res, next) {
 	Favorites.findOne({}, function (err, favorite) {
 		if (err) throw err;
 		var index = favorite.dishes.indexOf(req.params.dishObjectId);

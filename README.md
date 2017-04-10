@@ -1,5 +1,7 @@
 # coursera-server-side-nodejs
 
+This is the Coursera course "Server-side Development with NodeJS".
+
 week 1: I designed and made use of Node modules within a Node.js HTTP server  ('nodejs-server.js')
 and used the Express router ('dishRouter.js', 'leaderRouter.js', 'promoRouter.js')
 to support a REST API.

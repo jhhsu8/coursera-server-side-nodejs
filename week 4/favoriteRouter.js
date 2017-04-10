@@ -6,10 +6,11 @@ var Dishes = require('../models/dishes');
 var favoriteRouter = express.Router();
 favoriteRouter.use(bodyParser.json());
 var Verify = require('./verify');
-  
+ 
 favoriteRouter.route('/')
 .all(Verify.verifyOrdinaryUser)
 
+//get all the favorite dishes  
 .get(function (req, res, next) {
     Favorites.find({})
 	.populate('postedBy')
@@ -20,22 +21,23 @@ favoriteRouter.route('/')
     });
 })
 
-.post(Verify.verifyAdmin,function (req, res, next) {
-
+//Add the first favorite dish  
+.post(function (req, res, next) {
 Favorites.create(req.body, function (err, favorite) {
-        if (err) throw err; 
-		var id = favorite._id;   
-        favorite.postedBy = req.decoded._doc._id;
-			favorite.dishes.push(req.body);
-            favorite.save(function (err, dish) {
-            if (err) throw err;
-            console.log('Created Favorites!');
+	if (err) throw err; 
+	var id = favorite._id;   
+	favorite.postedBy = req.decoded._doc._id;
+	favorite.dishes.push(req.body);
+	favorite.save(function (err, dish) {
+		if (err) throw err;
+     console.log('Created Favorites!');
             res.json(favorite);;
         });
     });
 })
 
-.delete(Verify.verifyAdmin,function (req, res, next) {
+//delete all the favorite dishes
+.delete(function (req, res, next) {
      Favorites.remove({}, function (err, resp) {
         if (err) throw err;
         res.json(resp);
@@ -45,6 +47,7 @@ Favorites.create(req.body, function (err, favorite) {
 favoriteRouter.route('/dishes')
 .all(Verify.verifyOrdinaryUser)
 
+//get all the favorite dishes  
 .get(function (req, res, next) {
     Favorites.find({})
 	.populate('postedBy')
@@ -55,7 +58,8 @@ favoriteRouter.route('/dishes')
     });
 })
 
-.post(Verify.verifyAdmin,function (req, res, next) {
+//Add more favorite dishes (only after having added the first dish above) 
+.post(function (req, res, next) {
 	Favorites.findOne({}, function (err, favorite) {
 		if (err) throw err;
 		for(var key in req.body) {
@@ -77,6 +81,7 @@ favoriteRouter.route('/dishes')
 favoriteRouter.route('/dishes/:dishObjectId')
 .all(Verify.verifyOrdinaryUser)
 
+//get all the favorite dishes  
 .get(function (req, res, next) {
 	Favorites.find({})
 		.populate('dishes')
@@ -87,7 +92,8 @@ favoriteRouter.route('/dishes/:dishObjectId')
     });
 })
  
-.delete(Verify.verifyAdmin,function (req, res, next) {
+//delete a specific favorite dish
+.delete(function (req, res, next) {
 	Favorites.findOne({}, function (err, favorite) {
 		if (err) throw err;
 		var index = favorite.dishes.indexOf(req.params.dishObjectId);

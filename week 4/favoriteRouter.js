@@ -24,8 +24,7 @@ favoriteRouter.route('/')
 //Add the first favorite dish  
 .post(function (req, res, next) {
 Favorites.create(req.body, function (err, favorite) {
-	if (err) throw err; 
-	var id = favorite._id;   
+	if (err) throw err;   
 	favorite.postedBy = req.decoded._doc._id;
 	favorite.dishes.push(req.body);
 	favorite.save(function (err, dish) {
@@ -46,17 +45,6 @@ Favorites.create(req.body, function (err, favorite) {
  
 favoriteRouter.route('/dishes')
 .all(Verify.verifyOrdinaryUser)
-
-//get all the favorite dishes  
-.get(function (req, res, next) {
-    Favorites.find({})
-	.populate('postedBy')
-	.populate('dishes')
-    .exec(function (err, favorite) {
-        if (err) throw err;
-        res.json(favorite);
-    });
-})
 
 //Add more favorite dishes (only after having added the first dish above) 
 .post(function (req, res, next) {
@@ -80,17 +68,6 @@ favoriteRouter.route('/dishes')
  
 favoriteRouter.route('/dishes/:dishObjectId')
 .all(Verify.verifyOrdinaryUser)
-
-//get all the favorite dishes  
-.get(function (req, res, next) {
-	Favorites.find({})
-		.populate('dishes')
-    	.populate('postedBy')	
-    	.exec(function (err, favorite) {
-		if (err) throw err;
-		res.json(favorite);
-    });
-})
  
 //delete a specific favorite dish
 .delete(function (req, res, next) {

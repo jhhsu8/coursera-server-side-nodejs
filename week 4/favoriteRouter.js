@@ -27,7 +27,7 @@ Favorites.create(req.body, function (err, favorite) {
 	if (err) throw err;   
 	favorite.postedBy = req.decoded._doc._id;
 	favorite.dishes.push(req.body);
-	favorite.save(function (err, dish) {
+	favorite.save(function (err, favorite) {
 		if (err) throw err;
      console.log('Created Favorites!');
             res.json(favorite);;
@@ -76,7 +76,7 @@ favoriteRouter.route('/dishes/:dishObjectId')
 		var index = favorite.dishes.indexOf(req.params.dishObjectId);
 		favorite.dishes.splice(index, 1)
 		  console.log('Favorite deleted!'); 
-		favorite.save(function (err, dish) {
+		favorite.save(function (err, favorite) {
 			if (err) throw err;
             console.log('Updated Favorites!'); 
             res.json(favorite);;
